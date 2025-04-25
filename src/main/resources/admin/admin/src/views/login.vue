@@ -1,41 +1,139 @@
 <template>
   <div>
-    <div class="container loginIn" style="backgroundImage: url(http://codegen.caihongy.cn/20210508/7d18faa17f0b435a8534875c1ac94802.jpg)">
-
-      <div :class="2 == 1 ? 'left' : 2 == 2 ? 'left center' : 'left right'" style="backgroundColor: rgba(244, 244, 239, 0.95)">
-        <el-form class="login-form" label-position="left" :label-width="1 == 3 ? '56px' : '0px'">
-          <div class="title-container"><h3 class="title" style="color: rgba(21, 21, 20, 1)">人事管理系统登录</h3></div>
-          <el-form-item :label="1 == 3 ? '用户名' : ''" :class="'style'+1">
-            <span v-if="1 != 3" class="svg-container" style="color:rgba(183, 131, 59, 1);line-height:44px"><svg-icon icon-class="user" /></span>
-            <el-input placeholder="请输入用户名" name="username" type="text" v-model="rulesForm.username" />
+    <div
+      class="container loginIn"
+      style="
+        background-image: url(http://codegen.caihongy.cn/20210508/7d18faa17f0b435a8534875c1ac94802.jpg);
+      "
+    >
+      <div
+        :class="2 == 1 ? 'left' : 2 == 2 ? 'left center' : 'left right'"
+        style="background-color: rgba(244, 244, 239, 0.95)"
+      >
+        <el-form
+          class="login-form"
+          label-position="left"
+          :label-width="1 == 3 ? '56px' : '0px'"
+        >
+          <div class="title-container">
+            <h3 class="title" style="color: rgba(21, 21, 20, 1)">
+              人事管理系统登录
+            </h3>
+          </div>
+          <el-form-item :label="1 == 3 ? '用户名' : ''" :class="'style' + 1">
+            <span
+              v-if="1 != 3"
+              class="svg-container"
+              style="color: rgba(183, 131, 59, 1); line-height: 44px"
+              ><svg-icon icon-class="user"
+            /></span>
+            <el-input
+              placeholder="请输入用户名"
+              name="username"
+              type="text"
+              v-model="rulesForm.username"
+            />
           </el-form-item>
-          <el-form-item :label="1 == 3 ? '密码' : ''" :class="'style'+1">
-            <span v-if="1 != 3" class="svg-container" style="color:rgba(183, 131, 59, 1);line-height:44px"><svg-icon icon-class="password" /></span>
-            <el-input placeholder="请输入密码" name="password" type="password" v-model="rulesForm.password" />
+          <el-form-item :label="1 == 3 ? '密码' : ''" :class="'style' + 1">
+            <span
+              v-if="1 != 3"
+              class="svg-container"
+              style="color: rgba(183, 131, 59, 1); line-height: 44px"
+              ><svg-icon icon-class="password"
+            /></span>
+            <el-input
+              placeholder="请输入密码"
+              name="password"
+              type="password"
+              v-model="rulesForm.password"
+            />
           </el-form-item>
-          <el-form-item v-if="0 == '1'" class="code" :label="1 == 3 ? '验证码' : ''" :class="'style'+1">
-            <span v-if="1 != 3" class="svg-container" style="color:rgba(183, 131, 59, 1);line-height:44px"><svg-icon icon-class="code" /></span>
-            <el-input placeholder="请输入验证码" name="code" type="text" v-model="rulesForm.code" />
-            <div class="getCodeBt" @click="getRandCode(4)" style="height:44px;line-height:44px">
-              <span v-for="(item, index) in codes" :key="index" :style="{color:item.color,transform:item.rotate,fontSize:item.size}">{{ item.num }}</span>
+          <el-form-item
+            v-if="0 == '1'"
+            class="code"
+            :label="1 == 3 ? '验证码' : ''"
+            :class="'style' + 1"
+          >
+            <span
+              v-if="1 != 3"
+              class="svg-container"
+              style="color: rgba(183, 131, 59, 1); line-height: 44px"
+              ><svg-icon icon-class="code"
+            /></span>
+            <el-input
+              placeholder="请输入验证码"
+              name="code"
+              type="text"
+              v-model="rulesForm.code"
+            />
+            <div
+              class="getCodeBt"
+              @click="getRandCode(4)"
+              style="height: 44px; line-height: 44px"
+            >
+              <span
+                v-for="(item, index) in codes"
+                :key="index"
+                :style="{
+                  color: item.color,
+                  transform: item.rotate,
+                  fontSize: item.size,
+                }"
+                >{{ item.num }}</span
+              >
             </div>
           </el-form-item>
           <el-form-item label="角色" prop="loginInRole" class="role">
             <el-radio
               v-for="item in menus"
-	      v-if="item.hasBackLogin=='是'"
+              v-if="item.hasBackLogin == '是'"
               v-bind:key="item.roleName"
               v-model="rulesForm.role"
               :label="item.roleName"
-            >{{item.roleName}}</el-radio>
+              >{{ item.roleName }}</el-radio
+            >
           </el-form-item>
-          <el-button type="primary" @click="login()" class="loginInBt" style="padding:0;font-size:16px;border-radius:20px;height:44px;line-height:44px;width:100%;backgroundColor:rgba(203, 185, 86, 1); borderColor:rgba(203, 185, 86, 1); color:rgba(47, 43, 43, 1)">{{'1' == '1' ? '登录' : 'login'}}</el-button>
+          <el-button
+            type="primary"
+            @click="login()"
+            class="loginInBt"
+            style="
+              padding: 0;
+              font-size: 16px;
+              border-radius: 20px;
+              height: 44px;
+              line-height: 44px;
+              width: 100%;
+              background-color: rgba(203, 185, 86, 1);
+              border-color: rgba(203, 185, 86, 1);
+              color: rgba(47, 43, 43, 1);
+            "
+            >{{ "1" == "1" ? "登录" : "login" }}</el-button
+          >
+          <el-button
+            type="primary"
+            @click="register('yuangong')"
+            class="register"
+            style="
+              margin-top: 4px;
+              margin-left: 0;
+              padding: 0;
+              font-size: 16px;
+              border-radius: 20px;
+              height: 44px;
+              line-height: 44px;
+              width: 100%;
+              background-color: rgba(203, 185, 86, 1);
+              border-color: rgba(203, 185, 86, 1);
+              color: rgba(47, 43, 43, 1);
+            "
+            >{{ "1" == "1" ? "注册" : "register" }}</el-button
+          >
           <el-form-item class="setting">
             <!-- <div style="color:rgba(26, 24, 20, 0.85)" class="reset">修改密码</div> -->
           </el-form-item>
         </el-form>
       </div>
-
     </div>
   </div>
 </template>
@@ -48,31 +146,36 @@ export default {
         username: "",
         password: "",
         role: "",
-        code: '',
+        code: "",
       },
       menus: [],
       tableName: "",
-      codes: [{
-        num: 1,
-        color: '#000',
-        rotate: '10deg',
-        size: '16px'
-      },{
-        num: 2,
-        color: '#000',
-        rotate: '10deg',
-        size: '16px'
-      },{
-        num: 3,
-        color: '#000',
-        rotate: '10deg',
-        size: '16px'
-      },{
-        num: 4,
-        color: '#000',
-        rotate: '10deg',
-        size: '16px'
-      }],
+      codes: [
+        {
+          num: 1,
+          color: "#000",
+          rotate: "10deg",
+          size: "16px",
+        },
+        {
+          num: 2,
+          color: "#000",
+          rotate: "10deg",
+          size: "16px",
+        },
+        {
+          num: 3,
+          color: "#000",
+          rotate: "10deg",
+          size: "16px",
+        },
+        {
+          num: 4,
+          color: "#000",
+          rotate: "10deg",
+          size: "16px",
+        },
+      ],
     };
   },
   mounted() {
@@ -80,63 +183,71 @@ export default {
     this.menus = menus;
   },
   created() {
-    this.setInputColor()
-    this.getRandCode()
+    this.setInputColor();
+    this.getRandCode();
   },
   methods: {
-    setInputColor(){
-      this.$nextTick(()=>{
-        document.querySelectorAll('.loginIn .el-input__inner').forEach(el=>{
-          el.style.backgroundColor = "rgba(211, 204, 204, 0.26)"
-          el.style.color = "rgba(120, 118, 118, 1)"
-          el.style.height = "44px"
-          el.style.lineHeight = "44px"
-          el.style.borderRadius = "20px"
-        })
-        document.querySelectorAll('.loginIn .style3 .el-form-item__label').forEach(el=>{
-          el.style.height = "44px"
-          el.style.lineHeight = "44px"
-        })
-        document.querySelectorAll('.loginIn .el-form-item__label').forEach(el=>{
-          el.style.color = "rgba(183, 131, 59, 1)"
-        })
-        setTimeout(()=>{
-          document.querySelectorAll('.loginIn .role .el-radio__label').forEach(el=>{
-            el.style.color = "rgba(183, 131, 59, 1)"
-          })
-        },350)
-      })
-
+    setInputColor() {
+      this.$nextTick(() => {
+        document.querySelectorAll(".loginIn .el-input__inner").forEach((el) => {
+          el.style.backgroundColor = "rgba(211, 204, 204, 0.26)";
+          el.style.color = "rgba(120, 118, 118, 1)";
+          el.style.height = "44px";
+          el.style.lineHeight = "44px";
+          el.style.borderRadius = "20px";
+        });
+        document
+          .querySelectorAll(".loginIn .style3 .el-form-item__label")
+          .forEach((el) => {
+            el.style.height = "44px";
+            el.style.lineHeight = "44px";
+          });
+        document
+          .querySelectorAll(".loginIn .el-form-item__label")
+          .forEach((el) => {
+            el.style.color = "rgba(183, 131, 59, 1)";
+          });
+        setTimeout(() => {
+          document
+            .querySelectorAll(".loginIn .role .el-radio__label")
+            .forEach((el) => {
+              el.style.color = "rgba(183, 131, 59, 1)";
+            });
+        }, 350);
+      });
     },
-    register(tableName){
+    register(tableName) {
       this.$storage.set("loginTable", tableName);
-      this.$router.push({path:'/register'})
+      this.$router.push({ path: "/register" });
     },
     // 登陆
     login() {
-      let code = ''
-      for(let i in this.codes) {
-        code += this.codes[i].num
+      let code = "";
+      for (let i in this.codes) {
+        code += this.codes[i].num;
       }
-	  if ('0' == '1' && !this.rulesForm.code) {
-	     this.$message.error("请输入验证码");
-	    return;
-	  }
-      if ('0' == '1' && this.rulesForm.code.toLowerCase() != code.toLowerCase()) {
-         this.$message.error("验证码输入有误");
-		this.getRandCode()
+      if ("0" == "1" && !this.rulesForm.code) {
+        this.$message.error("请输入验证码");
+        return;
+      }
+      if (
+        "0" == "1" &&
+        this.rulesForm.code.toLowerCase() != code.toLowerCase()
+      ) {
+        this.$message.error("验证码输入有误");
+        this.getRandCode();
         return;
       }
       if (!this.rulesForm.username) {
-         this.$message.error("请输入用户名");
+        this.$message.error("请输入用户名");
         return;
       }
       if (!this.rulesForm.password) {
-         this.$message.error("请输入密码");
+        this.$message.error("请输入密码");
         return;
       }
       if (!this.rulesForm.role) {
-         this.$message.error("请选择角色");
+        this.$message.error("请选择角色");
         return;
       }
       let menus = this.menus;
@@ -147,7 +258,7 @@ export default {
       }
       this.$http({
         url: `${this.tableName}/login?username=${this.rulesForm.username}&password=${this.rulesForm.password}`,
-        method: "post"
+        method: "post",
       }).then(({ data }) => {
         if (data && data.code === 0) {
           this.$storage.set("Token", data.token);
@@ -160,44 +271,117 @@ export default {
         }
       });
     },
-    getRandCode(len = 4){
-      this.randomString(len)
+    getRandCode(len = 4) {
+      this.randomString(len);
     },
     randomString(len = 4) {
       let chars = [
-          "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k",
-          "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v",
-          "w", "x", "y", "z", "A", "B", "C", "D", "E", "F", "G",
-          "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R",
-          "S", "T", "U", "V", "W", "X", "Y", "Z", "0", "1", "2",
-          "3", "4", "5", "6", "7", "8", "9"
-      ]
-      let colors = ["0", "1", "2","3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f"]
-      let sizes = ['14', '15', '16', '17', '18']
+        "a",
+        "b",
+        "c",
+        "d",
+        "e",
+        "f",
+        "g",
+        "h",
+        "i",
+        "j",
+        "k",
+        "l",
+        "m",
+        "n",
+        "o",
+        "p",
+        "q",
+        "r",
+        "s",
+        "t",
+        "u",
+        "v",
+        "w",
+        "x",
+        "y",
+        "z",
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I",
+        "J",
+        "K",
+        "L",
+        "M",
+        "N",
+        "O",
+        "P",
+        "Q",
+        "R",
+        "S",
+        "T",
+        "U",
+        "V",
+        "W",
+        "X",
+        "Y",
+        "Z",
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+      ];
+      let colors = [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "a",
+        "b",
+        "c",
+        "d",
+        "e",
+        "f",
+      ];
+      let sizes = ["14", "15", "16", "17", "18"];
 
       let output = [];
       for (let i = 0; i < len; i++) {
         // 随机验证码
-        let key = Math.floor(Math.random()*chars.length)
-        this.codes[i].num = chars[key]
+        let key = Math.floor(Math.random() * chars.length);
+        this.codes[i].num = chars[key];
         // 随机验证码颜色
-        let code = '#'
+        let code = "#";
         for (let j = 0; j < 6; j++) {
-          let key = Math.floor(Math.random()*colors.length)
-          code += colors[key]
+          let key = Math.floor(Math.random() * colors.length);
+          code += colors[key];
         }
-        this.codes[i].color = code
+        this.codes[i].color = code;
         // 随机验证码方向
-        let rotate = Math.floor(Math.random()*60)
-        let plus = Math.floor(Math.random()*2)
-        if(plus == 1) rotate = '-'+rotate
-        this.codes[i].rotate = 'rotate('+rotate+'deg)'
+        let rotate = Math.floor(Math.random() * 60);
+        let plus = Math.floor(Math.random() * 2);
+        if (plus == 1) rotate = "-" + rotate;
+        this.codes[i].rotate = "rotate(" + rotate + "deg)";
         // 随机验证码字体大小
-        let size = Math.floor(Math.random()*sizes.length)
-        this.codes[i].size = sizes[size]+'px'
+        let size = Math.floor(Math.random() * sizes.length);
+        this.codes[i].size = sizes[size] + "px";
       }
     },
-  }
+  },
 };
 </script>
 <style lang="scss" scoped>
@@ -258,7 +442,7 @@ export default {
         height: 40px;
         width: 100%;
 
-        & /deep/ input {
+        & ::v-deep input {
           background: transparent;
           border: 0px;
           -webkit-appearance: none;
@@ -267,10 +451,7 @@ export default {
           height: 40px;
         }
       }
-
     }
-
-
   }
 
   .center {
@@ -278,7 +459,7 @@ export default {
     left: 50%;
     top: 50%;
     width: 360px;
-    transform: translate3d(-50%,-50%,0);
+    transform: translate3d(-50%, -50%, 0);
     height: 446px;
     border-radius: 8px;
   }
@@ -302,7 +483,7 @@ export default {
         top: 0;
         line-height: 40px;
         width: 100px;
-        background-color: rgba(51,51,51,0.4);
+        background-color: rgba(51, 51, 51, 0.4);
         color: #fff;
         text-align: center;
         border-radius: 0 4px 4px 0;
@@ -318,7 +499,7 @@ export default {
       }
 
       .el-input {
-        & /deep/ input {
+        & ::v-deep input {
           padding: 0 130px 0 30px;
         }
       }
@@ -326,7 +507,7 @@ export default {
   }
 
   .setting {
-    & /deep/ .el-form-item__content {
+    & ::v-deep .el-form-item__content {
       padding: 0 15px;
       box-sizing: border-box;
       line-height: 32px;
@@ -356,41 +537,41 @@ export default {
     }
 
     .el-input {
-      & /deep/ input {
+      & ::v-deep input {
         padding: 0 15px !important;
       }
     }
   }
 
-  .code.style2, .code.style3 {
+  .code.style2,
+  .code.style3 {
     .el-input {
-      & /deep/ input {
+      & ::v-deep input {
         padding: 0 115px 0 15px;
       }
     }
   }
 
   .style3 {
-    & /deep/ .el-form-item__label {
+    & ::v-deep .el-form-item__label {
       padding-right: 6px;
     }
 
     .el-input {
-      & /deep/ input {
+      & ::v-deep input {
         padding: 0 15px !important;
       }
     }
   }
 
   .role {
-    & /deep/ .el-form-item__label {
+    & ::v-deep .el-form-item__label {
       width: 56px !important;
     }
 
-    & /deep/ .el-radio {
+    & ::v-deep .el-radio {
       margin-right: 12px;
     }
   }
-
 }
 </style>
