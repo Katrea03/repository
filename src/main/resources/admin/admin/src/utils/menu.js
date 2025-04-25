@@ -9,7 +9,7 @@ const menu = {
                 buttons: ["新增", "查看", "修改", "删除"],
                 menu: "用户",
                 menuJump: "列表",
-                tableName: "user",
+                tableName: "users",
               },
             ],
             menu: "用户管理",
