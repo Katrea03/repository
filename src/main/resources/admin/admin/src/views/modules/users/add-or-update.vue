@@ -57,6 +57,30 @@
             </el-form-item>
           </div>
         </el-col>
+        <el-col :span="12">
+          <el-form-item
+            class="input"
+            v-if="type != 'info'"
+            label="角色"
+            prop="role"
+          >
+            <el-input
+              v-model="ruleForm.role"
+              placeholder="角色"
+              clearable
+              :readonly="ro.role"
+            ></el-input>
+          </el-form-item>
+          <div v-else>
+            <el-form-item class="input" label="角色" prop="role">
+              <el-input
+                v-model="ruleForm.role"
+                placeholder="角色"
+                readonly
+              ></el-input>
+            </el-form-item>
+          </div>
+        </el-col>
       </el-row>
       <el-form-item class="btn">
         <el-button
@@ -247,7 +271,7 @@ export default {
         password: [
           { required: true, message: "密码不能为空", trigger: "blur" },
         ],
-        role: [],
+        role: [{ required: true, message: "角色不能为空", trigger: "blur" }],
       },
     };
   },
