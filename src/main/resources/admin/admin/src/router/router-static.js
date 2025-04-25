@@ -70,7 +70,7 @@ const routes = [
         component: yuangong,
       },
       {
-        path: "/user",
+        path: "/users",
         name: "用户",
         component: user,
       },
