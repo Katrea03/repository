@@ -27,6 +27,13 @@ public class InterceptorConfig extends WebMvcConfigurationSupport{
 	 */
 	@Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        // 映射 /upload/** 到本地文件系统或 classpath 下对应目录
+        registry.addResourceHandler("/upload/**")
+            // 如果你是把文件放在项目根目录的 upload 里，就用 file:
+            // .addResourceLocations("file:upload/")
+            // 如果是 classpath 下的 upload 目录，则：
+            .addResourceLocations("classpath:/upload/");
+            
 		registry.addResourceHandler("/**")
         .addResourceLocations("classpath:/resources/")
         .addResourceLocations("classpath:/static/")
