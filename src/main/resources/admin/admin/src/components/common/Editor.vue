@@ -39,7 +39,7 @@ const toolbarOptions = [
   [{ font: [] }], // 字体种类
   [{ align: [] }], // 对齐方式
   ["clean"], // 清除文本格式
-  ["link", "image", "video"] // 链接、图片、视频
+  ["link", "image", "video"], // 链接、图片、视频
 ];
 
 import { quillEditor } from "vue-quill-editor";
@@ -51,20 +51,20 @@ export default {
   props: {
     /*编辑器的内容*/
     value: {
-      type: String
+      type: String,
     },
     action: {
-      type: String
+      type: String,
     },
     /*图片大小*/
     maxSize: {
       type: Number,
-      default: 4000 //kb
-    }
+      default: 4000, //kb
+    },
   },
 
   components: {
-    quillEditor
+    quillEditor,
   },
 
   data() {
@@ -79,14 +79,14 @@ export default {
             container: toolbarOptions,
             // container: "#toolbar",
             handlers: {
-              image: function(value) {
+              image: function (value) {
                 if (value) {
                   // 触发input框选择图片文件
                   document.querySelector(".avatar-uploader input").click();
                 } else {
                   this.quill.format("image", false);
                 }
-              }
+              },
               // link: function(value) {
               //   if (value) {
               //     var href = prompt('请输入url');
@@ -95,23 +95,23 @@ export default {
               //     this.quill.format("link", false);
               //   }
               // },
-            }
-          }
-        }
+            },
+          },
+        },
       },
       // serverUrl: `${base.url}sys/storage/uploadSwiper?token=${storage.get('token')}`, // 这里写你要上传的图片服务器地址
       header: {
         // token: sessionStorage.token
-       'Token': this.$storage.get("Token")
-      } // 有的图片服务器要求请求头需要有token
+        Token: this.$storage.get("Token"),
+      }, // 有的图片服务器要求请求头需要有token
     };
   },
   computed: {
     // 计算属性的 getter
-    getActionUrl: function() {
-      // return this.$base.url + this.action + "?token=" + this.$storage.get("token");
+    getActionUrl: function () {
+      // return this.$base.url + this.action + "?token=" + this.$storage.get("Token");
       return `/${this.$base.name}/` + this.action;
-    }
+    },
   },
   methods: {
     onEditorBlur() {
@@ -140,7 +140,11 @@ export default {
         // 获取光标所在位置
         let length = quill.getSelection().index;
         // 插入图片  res.url为服务器返回的图片地址
-        quill.insertEmbed(length, "image", this.$base.url+ "upload/" +res.file);
+        quill.insertEmbed(
+          length,
+          "image",
+          this.$base.url + "upload/" + res.file
+        );
         // 调整光标到最后
         quill.setSelection(length + 1);
       } else {
@@ -154,10 +158,10 @@ export default {
       // loading动画消失
       this.quillUpdateImg = false;
       this.$message.error("图片插入失败");
-    }
-  }
+    },
+  },
 };
-</script> 
+</script>
 
 <style>
 .editor {
@@ -176,7 +180,7 @@ export default {
   content: "请输入视频地址:";
 }
 .ql-container {
-	height: 400px;
+  height: 400px;
 }
 
 .ql-snow .ql-picker.ql-size .ql-picker-label::before,
