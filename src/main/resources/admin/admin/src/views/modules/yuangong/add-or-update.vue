@@ -215,6 +215,33 @@
             </el-form-item>
           </div>
         </el-col>
+        <el-col :span="12">
+          <el-form-item
+            class="select"
+            v-if="type != 'info'"
+            label="在职状态"
+            prop="status"
+          >
+            <el-select v-model="ruleForm.status" placeholder="请选择在职状态">
+              <el-option
+                v-for="opt in statusOptions"
+                :key="opt.value"
+                :label="opt.label"
+                :value="opt.value"
+                :disabled="opt.value === 'working'"
+              />
+            </el-select>
+          </el-form-item>
+          <div v-else>
+            <el-form-item class="input" label="在职状态" prop="status">
+              <el-input
+                v-model="ruleForm.status"
+                placeholder="在职状态"
+                readonly
+              ></el-input>
+            </el-form-item>
+          </div>
+        </el-col>
       </el-row>
       <el-form-item class="btn">
         <el-button
@@ -398,6 +425,7 @@ export default {
         bumen: false,
         zhiwei: false,
         dianhua: false,
+        status: false,
       },
       ruleForm: {
         gonghao: "",
@@ -408,10 +436,16 @@ export default {
         bumen: "",
         zhiwei: "",
         dianhua: "",
+        status: "",
       },
       xingbieOptions: [],
       bumenOptions: [],
       zhiweiOptions: [],
+      statusOptions: [
+        { label: "在职", value: "working" },
+        { label: "离职待审核", value: "leave_pending" },
+        { label: "离职审核未通过", value: "leave_rejected" },
+      ],
       rules: {
         gonghao: [{ required: true, message: "工号不能为空", trigger: "blur" }],
         mima: [{ required: true, message: "密码不能为空", trigger: "blur" }],
@@ -486,6 +520,11 @@ export default {
             this.ro.dianhua = true;
             continue;
           }
+          if (o == "status") {
+            this.ruleForm.dianhua = obj[o];
+            this.ro.status = true;
+            continue;
+          }
         }
       }
       // 获取用户信息
@@ -530,6 +569,9 @@ export default {
       }).then(({ data }) => {
         if (data && data.code === 0) {
           this.ruleForm = data.data;
+          if (!this.ruleForm.status) {
+            this.ruleForm.status = "working";
+          }
           //解决前台上传图片后台不显示的问题
           let reg = new RegExp("../../../upload", "g"); //g代表全部
         } else {

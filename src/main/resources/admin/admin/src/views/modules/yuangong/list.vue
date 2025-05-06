@@ -125,6 +125,28 @@
               clearable
             ></el-input>
           </el-form-item>
+          <el-form-item :label="contents.inputTitle == 1 ? '在职状态' : ''">
+            <el-input
+              v-if="contents.inputIcon == 1 && contents.inputIconPosition == 1"
+              prefix-icon="el-icon-search"
+              v-model="searchForm.status"
+              placeholder="在职状态"
+              clearable
+            ></el-input>
+            <el-input
+              v-if="contents.inputIcon == 1 && contents.inputIconPosition == 2"
+              suffix-icon="el-icon-search"
+              v-model="searchForm.status"
+              placeholder="在职状态"
+              clearable
+            ></el-input>
+            <el-input
+              v-if="contents.inputIcon == 0"
+              v-model="searchForm.status"
+              placeholder="在职状态"
+              clearable
+            ></el-input>
+          </el-form-item>
           <el-form-item>
             <el-button
               v-if="
@@ -301,6 +323,16 @@
           >
             <template slot-scope="scope">
               {{ scope.row.xingbie }}
+            </template>
+          </el-table-column>
+          <el-table-column
+            prop="status"
+            label="在职状态"
+            header-align="center"
+            :sortable="true"
+          >
+            <template slot-scope="scope">
+              {{ statusMap[scope.row.status] }}
             </template>
           </el-table-column>
           <el-table-column
@@ -674,6 +706,12 @@ export default {
         tableAlign: "center",
       },
       layouts: "",
+      // 用于渲染状态的映射表
+      statusMap: {
+        working: "在职",
+        leave_pending: "离职待审核",
+        leave_rejected: "离职审核未通过",
+      },
     };
   },
   created() {
@@ -957,6 +995,16 @@ export default {
         this.searchForm.xingbie != undefined
       ) {
         params["xingbie"] = "%" + this.searchForm.xingbie + "%";
+      }
+      let statusKey = "";
+      Object.keys(this.statusMap).forEach((key) => {
+        const value = this.statusMap[key];
+        if (value === this.searchForm.status) {
+          statusKey = key;
+        }
+      });
+      if (statusKey != "" && statusKey != undefined) {
+        params["status"] = "%" + statusKey + "%";
       }
       if (this.searchForm.bumen != "" && this.searchForm.bumen != undefined) {
         params["bumen"] = "%" + this.searchForm.bumen + "%";
