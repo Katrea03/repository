@@ -18,7 +18,7 @@ const menu = {
             child: [
               {
                 buttons: ["新增", "查看", "修改", "删除"],
-                menu: "用户",
+                menu: "经理",
                 menuJump: "列表",
                 tableName: "manager",
               },
