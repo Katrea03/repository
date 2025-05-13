@@ -17,6 +17,17 @@ const menu = {
           {
             child: [
               {
+                buttons: ["新增", "查看", "修改", "删除"],
+                menu: "用户",
+                menuJump: "列表",
+                tableName: "manager",
+              },
+            ],
+            menu: "经理管理",
+          },
+          {
+            child: [
+              {
                 buttons: ["新增", "查看", "修改", "删除", "考勤", "工资"],
                 menu: "员工",
                 menuJump: "列表",
@@ -208,7 +219,7 @@ const menu = {
         hasFrontLogin: "否",
         hasFrontRegister: "否",
         roleName: "经理",
-        tableName: "users",
+        tableName: "manager",
       },
     ];
   },

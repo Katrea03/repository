@@ -15,6 +15,7 @@ import bumenxinxi from "@/views/modules/bumenxinxi/list";
 import gongzixinxi from "@/views/modules/gongzixinxi/list";
 import yuangong from "@/views/modules/yuangong/list";
 import user from "@/views/modules/users/list";
+import manager from "@/views/modules/manager/list";
 import zhiweixinxi from "@/views/modules/zhiweixinxi/list";
 import peixunxinxi from "@/views/modules/peixunxinxi/list";
 import zhaopinxinxi from "@/views/modules/zhaopinxinxi/list";
@@ -73,6 +74,11 @@ const routes = [
         path: "/users",
         name: "用户",
         component: user,
+      },
+      {
+        path: "/manager",
+        name: "经理",
+        component: manager,
       },
       {
         path: "/zhiweixinxi",
