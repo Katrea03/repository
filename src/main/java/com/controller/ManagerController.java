@@ -41,7 +41,7 @@ public class ManagerController {
 		if(user==null || !user.getPassword().equals(password)) {
 			return R.error("账号或密码不正确");
 		}
-		String token = tokenService.generateToken(user.getId(),username, "manager", "经理");
+		String token = tokenService.generateToken(user.getId(),username, "manager", user.getRole());
 		return R.ok().put("token", token);
 	}
 	

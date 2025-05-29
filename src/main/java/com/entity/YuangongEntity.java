@@ -104,6 +104,16 @@ public class YuangongEntity<T> implements Serializable {
 	@DateTimeFormat
 	private Date addtime;
 
+	private String status;
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
 	public Date getAddtime() {
 		return addtime;
 	}

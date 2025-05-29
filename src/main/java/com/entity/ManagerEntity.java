@@ -27,7 +27,20 @@ public class ManagerEntity implements Serializable {
 	 */
 	private String password;
 
+	/**
+	 * 角色
+	 */
+	private String role;
+
 	private Date addtime;
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
 
 	public String getUsername() {
 		return username;
